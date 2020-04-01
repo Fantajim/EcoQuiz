@@ -1,7 +1,6 @@
 package com.example.ecoquiz;
 
 import android.content.Intent;
-import android.support.annotation.RawRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +15,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainScreen extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainScreen";
     public static ArrayList<Question> questionList = new ArrayList<>();
 
     @Override
@@ -31,7 +30,7 @@ public class MainScreen extends AppCompatActivity {
     }
 
     public void onClickLearn(View view) {
-        Intent intent = new Intent(this, OptionScreen.class);
+        Intent intent = new Intent(this, OptionActivity.class);
         startActivity(intent);
     }
 

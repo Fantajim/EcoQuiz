@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".QuestionScreen">
+    tools:context=".QuestionActivity">
 
-        <fragment
-            android:name="com.example.ecoquiz.QuestionFragment"
-            android:id="@+id/question_frag_question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    <fragment
-        android:id="@+id/question_frag_count"
-        android:name="com.example.ecoquiz.QuestionNumberFragment"
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <Button
-        android:layout_marginTop="30dp"
-        android:id="@+id/btn_next"
-        android:text="@string/btn_question_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onNextClick"
-        />
-
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

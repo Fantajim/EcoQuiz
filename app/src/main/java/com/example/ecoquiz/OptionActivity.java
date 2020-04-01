@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.NumberPicker;
 
-public class OptionScreen extends AppCompatActivity {
+public class OptionActivity extends AppCompatActivity {
+    private static final String TAG = "OptionScreen";
     private String[] pickerValues;
 
     @Override
@@ -25,9 +26,9 @@ public class OptionScreen extends AppCompatActivity {
     }
 
     public void onGoClick(View view) {
-    Intent intent = new Intent (this, QuestionScreen.class);
+    Intent intent = new Intent (this, QuestionActivity.class);
     NumberPicker picker = findViewById(R.id.numberpicker_option);
-    intent.putExtra("selection", picker.getValue());
+    intent.putExtra("maxquestions", picker.getValue());
     startActivity(intent);
     }
 
