@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EcoQuiz</string>
+    <string name="btn_learn">Learn</string>
+    <string name="text_correct">Total % correct: </string>
+    <string name="text_least_category">Category least correct: </string>
+    <string name="btn_option_go">Lets go!</string>
+    <string name="img_description">Question Image</string>
+    <string name="btn_question_next">Next</string>
+    <string name="btn_question_finish">Finish</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
