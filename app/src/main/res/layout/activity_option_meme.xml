@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OptionMemeActivity">
+
+
+    <NumberPicker
+        android:id="@+id/numberpicker_meme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        />
+
+    <Button
+        android:text="@string/btn_meme_go"
+        android:id="@+id/btn_classic_option_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onMemeStartClick"
+        />
+
+    <RadioGroup
+        android:id="@+id/radio_group_meme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radiobutton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <RadioButton
+            android:id="@+id/radiobutton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <RadioButton
+            android:id="@+id/radiobutton3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </RadioGroup>
+
+</LinearLayout>
