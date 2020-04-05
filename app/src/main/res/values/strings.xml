@@ -14,5 +14,7 @@
     <string name="radio_meme_option1">ABC</string>
     <string name="radio_meme_option2">ABC</string>
     <string name="radio_meme_option3">ABC</string>
+    <string name ="spinner_textview">Amount of\nquestions</string>
+    <string name ="meme_textview_source">Meme source</string>
 
 </resources>

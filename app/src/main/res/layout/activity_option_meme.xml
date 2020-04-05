@@ -4,44 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="30dp"
     tools:context=".OptionMemeActivity">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="left"
+    android:padding="10dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/spinner_textview"
+        android:layout_marginEnd="10dp"
+        />
 
     <NumberPicker
         android:id="@+id/numberpicker_meme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_marginLeft="40dp"
         />
 
-    <Button
-        android:text="@string/btn_meme_go"
-        android:id="@+id/btn_classic_option_go"
-        android:layout_width="wrap_content"
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onMemeStartClick"
-        />
+        android:gravity="left"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/meme_textview_source"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center"
+            />
 
     <RadioGroup
         android:id="@+id/radio_group_meme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp">
 
         <RadioButton
             android:id="@+id/radiobutton1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/radio_meme_option1"
             />
         <RadioButton
             android:id="@+id/radiobutton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/radio_meme_option2"
             />
         <RadioButton
             android:id="@+id/radiobutton3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/radio_meme_option3"
             />
     </RadioGroup>
+    </LinearLayout>
+    <Button
+        android:layout_marginTop="10dp"
+        android:text="@string/btn_meme_go"
+        android:id="@+id/btn_meme_go"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onMemeStartClick"
+        />
 
 </LinearLayout>

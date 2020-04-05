@@ -1,8 +1,10 @@
 package com.example.ecoquiz;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +29,15 @@ public class QuestionFragment extends Fragment {
     private TextView questionText;
     private TextView questionCursor;
     private Button questionNext;
+    private QuestionListener listener;
+    private boolean correct;
 
     public QuestionFragment() {
         // Required empty public constructor
+    }
+
+    public void setListener(QuestionListener mListener) {
+        listener = mListener;
     }
 
 
@@ -48,7 +56,7 @@ public class QuestionFragment extends Fragment {
         questionCursor = view.findViewById(R.id.question_cursor);
         questionNext = view.findViewById(R.id.question_nextbutton);
 
-        Question question = MainActivity.getQuestionList().get(QuestionActivity.getCurrentQuestion());
+        final Question question = MainActivity.getQuestionList().get(QuestionActivity.getCurrentQuestion());
 
         questionText.setText(question.getQuestionText());
         if(question.getQuestionImage() != null &&   !question.getQuestionImage().isEmpty() ) {
@@ -75,61 +83,41 @@ public class QuestionFragment extends Fragment {
         questionCursor.setText(currentQuestions+"/"+maxQuestions);
 
         questionNext.setEnabled(false);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-        {
+
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-               questionNext.setEnabled(true);
+                RadioButton answer = radioGroup.findViewById(checkedId);
+                correct = answer.getText().toString().equals(question.getSolution());
+                if(correct)answer.setBackgroundColor(Color.GREEN);
+                else {
+                    answer.setBackgroundColor(Color.RED);
+                    int radiobuttonCount = radioGroup.getChildCount();
+                    for(int i = 0; i < radiobuttonCount; i++) {
+                        RadioButton temp = (RadioButton)radioGroup.getChildAt(i);
+                        if(temp.getText().toString().equals(question.getSolution())) {
+                            temp.setBackgroundColor(Color.GREEN);
+                        }
+                    }
+                }
+                radioButton1.setEnabled(false);
+                radioButton2.setEnabled(false);
+                radioButton3.setEnabled(false);
+                radioButton4.setEnabled(false);
+                questionNext.setEnabled(true);
             }
         });
 
         questionNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                QuestionActivity.increaseCurrentQuestion();
-                QuestionFragment question = new QuestionFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question).commit();
-            //    getActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, question).addToBackStack(null).commit();
+               listener.onNextPress(correct);
             }
         });
 
+        Log.d(TAG, "onCreateView: Question Fragment created with id: "+question.getId());
         return view;
 
-    }
-
-    public RadioGroup getRadioGroup() {
-        return radioGroup;
-    }
-
-    public RadioButton getRadioButton1() {
-        return radioButton1;
-    }
-
-    public RadioButton getRadioButton2() {
-        return radioButton2;
-    }
-
-    public RadioButton getRadioButton3() {
-        return radioButton3;
-    }
-
-    public RadioButton getRadioButton4() {
-        return radioButton4;
-    }
-
-    public ImageView getQuestionImage() {
-        return questionImage;
-    }
-
-    public TextView getQuestionText() {
-        return questionText;
-    }
-
-    public TextView getQuestionCursor() {
-        return questionCursor;
-    }
-
-    public Button getQuestionNext() {
-        return questionNext;
     }
 }

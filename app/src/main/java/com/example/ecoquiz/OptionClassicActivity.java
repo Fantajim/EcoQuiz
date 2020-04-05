@@ -8,12 +8,15 @@ import android.widget.NumberPicker;
 
 public class OptionClassicActivity extends AppCompatActivity {
 
+    public static final String SPINNERVALUE = "SpinnerValue";
+    private NumberPicker picker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_classic);
 
-        final NumberPicker picker = findViewById(R.id.numberpicker_classic);
+        picker = findViewById(R.id.numberpicker_classic);
         picker.setMinValue(1);
         picker.setMaxValue(11);
         String[] pickerValues = new String[11];
@@ -26,6 +29,7 @@ public class OptionClassicActivity extends AppCompatActivity {
 
     public void onClassicStartClick(View view) {
         Intent intent = new Intent(this, QuestionActivity.class);
-        //todo
+        intent.putExtra(QuestionActivity.SPINNERVALUE, picker.getValue());
+        startActivity(intent);
     }
 }
