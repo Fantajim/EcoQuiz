@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<Question> questionList = new ArrayList<>();
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
-    private TextView tvCorrectAnswers;
-    private TextView tvTotalAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +35,6 @@ public class MainActivity extends AppCompatActivity {
         // TODO: 06.04.20 Submit questions
         // TODO: 06.04.20 About
 
-        sharedPreferences = getSharedPreferences(getString(R.string.FILE_NAME), Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        tvCorrectAnswers = findViewById(R.id.tvCorrectAnswers);
-        tvTotalAnswers = findViewById(R.id.tvTotalAnswers);
-
-        int temp = sharedPreferences.getInt(getString(R.string.TOTAL_CORRECT),0);
-        int temp2 = sharedPreferences.getInt(getString(R.string.TOTAL_QUESTIONS), 0);
-
-        Double temp3 = (new Double(temp) / new Double(temp2))*100;
-        temp3 =(double) Math.round(temp3*100)/100;
-
-        tvCorrectAnswers.setText(tvCorrectAnswers.getText().toString().concat(Double.toString(temp3)).concat("%"));
-        tvTotalAnswers.setText(tvTotalAnswers.getText().toString().concat(Integer.toString(temp2)));
 
         if (!questionList.isEmpty()) questionList.clear();
             createQuestions();

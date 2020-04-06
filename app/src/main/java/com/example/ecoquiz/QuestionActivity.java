@@ -16,7 +16,6 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
     public static final String SPINNERVALUE = "SpinnerValue";
     private boolean meme = false;
     private String memeSource = null;
-    private int correctAnswers = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +47,8 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
 
     @Override
     public void onNextPress(boolean correctAnswer) {
-        if (correctAnswer) correctAnswers++;
         if ( currentQuestion == maxQuestions) {
             Intent intent = new Intent(this, MainActivity.class);
-            int temp = MainActivity.sharedPreferences.getInt(getString(R.string.TOTAL_CORRECT), 0);
-            int temp2 = MainActivity.sharedPreferences.getInt(getString(R.string.TOTAL_QUESTIONS), 0);
-            MainActivity.editor.putInt(getString(R.string.TOTAL_CORRECT), correctAnswers+=temp).commit();
-            MainActivity.editor.putInt(getString(R.string.TOTAL_QUESTIONS), maxQuestions+= temp2).commit();
-            correctAnswers = 0;
             startActivity(intent);
             finish();
         }

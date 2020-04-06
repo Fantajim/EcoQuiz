@@ -3,6 +3,8 @@ package com.example.ecoquiz;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -113,7 +115,13 @@ public class QuestionFragment extends Fragment {
                 radioButton4.setEnabled(false);
 
                 if(OptionActivity.fastMode) {
-                    listener.onNextPress(correct);
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onNextPress(correct);
+                        }
+                    }, 1500);
                 }
                 else {
                     questionNext.setEnabled(true);
