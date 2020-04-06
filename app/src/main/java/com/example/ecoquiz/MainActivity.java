@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Double temp3 = (new Double(temp) / new Double(temp2))*100;
         temp3 =(double) Math.round(temp3*100)/100;
 
-        tvCorrectAnswers.setText(tvCorrectAnswers.getText().toString().concat(Double.toString(temp3)).concat(" %"));
+        tvCorrectAnswers.setText(tvCorrectAnswers.getText().toString().concat(Double.toString(temp3)).concat("%"));
         tvTotalAnswers.setText(tvTotalAnswers.getText().toString().concat(Integer.toString(temp2)));
 
         if (!questionList.isEmpty()) questionList.clear();

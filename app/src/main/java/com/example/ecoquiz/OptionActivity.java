@@ -17,11 +17,13 @@ public class OptionActivity extends AppCompatActivity {
       Intent intent = new Intent(this, OptionClassicActivity.class);
       QuestionActivity.setCurrentQuestion(1);
       startActivity(intent);
+      finish();
     }
 
     public void memeOnClick(View view) {
         Intent intent = new Intent(this, OptionMemeActivity.class);
         QuestionActivity.setCurrentQuestion(1);
         startActivity(intent);
+        finish();
     }
 }

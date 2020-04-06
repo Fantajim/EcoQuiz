@@ -23,7 +23,7 @@
     <TextView
         android:id="@+id/tvCorrectAnswers"
         android:layout_gravity="left"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvCorrectAnswers"
@@ -31,7 +31,6 @@
     <TextView
         android:id="@+id/tvTotalAnswers"
         android:layout_gravity="left"
-        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvTotalAnswers"/>

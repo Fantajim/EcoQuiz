@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EcoQuiz</string>
     <string name="btn_learn">Learn</string>
-    <string name="tvCorrectAnswers">Total % correct:\u0020 </string>
+    <string name="tvCorrectAnswers">Total answers correct:\u0020 </string>
     <string name= "tvTotalAnswers">Total answered questions:\u0020 </string>
     <string name="btn_classic_go">Lets go!</string>
     <string name="btn_meme_go">Lets meme!</string>
