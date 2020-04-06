@@ -2,7 +2,7 @@
     <string name="app_name">EcoQuiz</string>
     <string name="btn_learn">Learn</string>
     <string name="tvCorrectAnswers">Total answers correct:\u0020 </string>
-    <string name= "tvTotalAnswers">Total answered questions:\u0020 </string>
+    <string name="tvTotalAnswers">Total answered questions:\u0020 </string>
     <string name="btn_classic_go">Lets go!</string>
     <string name="btn_meme_go">Lets meme!</string>
     <string name="img_description">Question Image</string>
@@ -11,14 +11,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_category_classic">Classic</string>
     <string name="btn_category_meme">Meme n\' Learn</string>
-    <string name="radio_meme_option1">ABC</string>
-    <string name="radio_meme_option2">ABC</string>
-    <string name="radio_meme_option3">ABC</string>
-    <string name ="spinner_textview">Amount of\nquestions</string>
-    <string name ="meme_textview_source">Meme source</string>
-    <string name = "FILE_NAME">Ecoquiz shared data</string>
-    <string name = "TOTAL_CORRECT">Ecoquiz correct answers</string>
-    <string name = "TOTAL_QUESTIONS">Ecoquiz total questions</string>
+    <string name="radio_meme_option1">dankmemes</string>
+    <string name="radio_meme_option2">memes</string>
+    <string name="radio_meme_option3">meirl</string>
+    <string name="spinner_textview">Amount of\nquestions</string>
+    <string name="meme_textview_source">Meme source</string>
+    <string name="FILE_NAME">Ecoquiz shared data</string>
+    <string name="TOTAL_CORRECT">Ecoquiz correct answers</string>
+    <string name="TOTAL_QUESTIONS">Ecoquiz total questions</string>
+    <string name="btMemeContinue">Continue</string>
+    <string name ="btMemeWait">Please wait…</string>
+    <string name ="cbFastMeme">Fast Mode</string>
 
 
 </resources>

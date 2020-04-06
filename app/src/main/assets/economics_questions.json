@@ -98,8 +98,16 @@
       "answer3" : "",
       "answer4" : "",
       "solution": "False"
+    },
+    {
+
+      "image": "q6",
+      "question": "The marginal product of the third worker is:",
+      "answer1": "15'000",
+      "answer2": "9'000",
+      "answer3" : "12'000",
+      "answer4" : "10'000",
+      "solution": "15'000"
     }
-    
-    
-    ]
+  ]
 }

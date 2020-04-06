@@ -64,7 +64,7 @@ public class QuestionFragment extends Fragment {
         questionText.setText(question.getQuestionText());
         if(question.getQuestionImage() != null &&   !question.getQuestionImage().isEmpty() ) {
             String resource = "@drawable/"+question.getQuestionImage();
-            int imageResource = getResources().getIdentifier(resource, null, null );
+            int imageResource = getResources().getIdentifier(resource, "drawable", getContext().getPackageName() );
             Drawable res = getResources().getDrawable(imageResource);
             questionImage.setImageDrawable(res);
         }
@@ -111,7 +111,13 @@ public class QuestionFragment extends Fragment {
                 radioButton2.setEnabled(false);
                 radioButton3.setEnabled(false);
                 radioButton4.setEnabled(false);
-                questionNext.setEnabled(true);
+
+                if(OptionActivity.fastMode) {
+                    listener.onNextPress(correct);
+                }
+                else {
+                    questionNext.setEnabled(true);
+                }
             }
         });
 

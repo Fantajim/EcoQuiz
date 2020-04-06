@@ -26,6 +26,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         if (getIntent().getExtras().containsKey(OptionMemeActivity.MEMESOURCE)) {
             memeSource = getIntent().getExtras().getString(OptionMemeActivity.MEMESOURCE);
             meme = true;
+
         }
 
         QuestionFragment question = new QuestionFragment();
@@ -61,19 +62,11 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         else {
             increaseCurrentQuestion();
         }
-        // TODO: 06.04.20
-        // Make ArrayList of correct and wrong answers and save in sharedPreferences
 
-
-
-        // TODO: 06.04.20 / Make end Activity or Fragment not sure
-
-
-
-
-        if(meme && currentQuestion % 2 == 1) {
-            // TODO: 05.04.20
-            //show meme
+        if(meme) {
+           MemeFragment memeFragment = MemeFragment.newInstance(memeSource);
+           memeFragment.setQuestionListener(this);
+           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,memeFragment).commit();
         }
         else {
             QuestionFragment question = new QuestionFragment();
@@ -81,6 +74,14 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question).commit();
         }
 
+    }
+
+
+    @Override
+    public void onMemePress() {
+        QuestionFragment question = new QuestionFragment();
+        question.setListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question).commit();
     }
 
     public static void setCurrentQuestion(int currentQuestion) {
