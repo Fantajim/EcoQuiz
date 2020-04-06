@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // TODO: 06.04.20 secret easter egg mode with annoying mp3 loops
+        // TODO: 06.04.20  doom guy bloody face marathon mode
+        // TODO: 06.04.20 Scoreboard database raspbi marathon mode
+        // TODO: 06.04.20 Submit questions
+        // TODO: 06.04.20 About
+
         sharedPreferences = getSharedPreferences(getString(R.string.FILE_NAME), Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         tvCorrectAnswers = findViewById(R.id.tvCorrectAnswers);
