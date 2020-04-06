@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EcoQuiz</string>
     //Buttons
-    <string name="btn_learn">Learn</string>
+    <string name="btLearn">Learn</string>
     <string name="btn_classic_go">Lets go!</string>
     <string name="btn_meme_go">Lets meme!</string>
     <string name="btMemeContinue">Continue</string>
@@ -19,6 +19,8 @@
 
     <string name ="cbFastMeme">Fast Mode</string>
     <string name="img_description">Question Image</string>
+    <string name="btSubmit">Submit</string>
+    <string name="btAbout">About</string>
 
 
 </resources>

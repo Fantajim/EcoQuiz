@@ -11,7 +11,7 @@
 
 
     <Button
-        android:id="@+id/learnbutton"
+        android:id="@+id/btLearn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_learn"
@@ -19,6 +19,19 @@
         android:onClick="onClickLearn"
         />
 
+    <Button
+        android:layout_marginTop="30dp"
+        android:id="@+id/btSumbit"
+        android:text="@string/btSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_marginTop="30dp"
+        android:id="@+id/btAbout"
+        android:text="@string/btAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 

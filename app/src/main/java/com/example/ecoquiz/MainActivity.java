@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -18,14 +19,21 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainScreen";
     public static ArrayList<Question> questionList = new ArrayList<>();
+    private Button btLearn;
+    private Button btSubmit;
+    private Button btAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btLearn = findViewById(R.id.btLearn);
+        btSubmit = findViewById(R.id.btSumbit);
+        btAbout = findViewById(R.id.btAbout);
 
         // TODO: 06.04.20 secret easter egg mode with annoying mp3 loops
         // TODO: 06.04.20  doom guy bloody face marathon mode
@@ -37,11 +45,6 @@ public class MainActivity extends AppCompatActivity {
         if (!questionList.isEmpty()) questionList.clear();
             createQuestions();
             Collections.shuffle(questionList);
-    }
-
-    public void onClickLearn(View view) {
-        Intent intent = new Intent(this, OptionActivity.class);
-        startActivity(intent);
     }
 
     public static ArrayList<Question> getQuestionList() {
@@ -96,6 +99,25 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
         return json;
+    }
+
+    @Override
+    public void onClick(View v) {
+    switch(v.getId()) {
+        case R.id.btLearn: {
+            Intent intent = new Intent(this, OptionActivity.class);
+            startActivity(intent);
+        }
+        case R.id.btSumbit: {
+            Intent intent = new Intent(this, OptionActivity.class);
+            startActivity(intent);
+        }
+
+        case R.id.btAbout: {
+            Intent intent = new Intent(this, OptionActivity.class);
+            startActivity(intent);
+        }
+    }
     }
 }
 
