@@ -21,8 +21,6 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainScreen";
     public static ArrayList<Question> questionList = new ArrayList<>();
-    public static SharedPreferences sharedPreferences;
-    public static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -185,9 +185,7 @@ public class MemeFragment extends Fragment {
         }
 
         protected void onPostExecute(Bitmap result) {
-            BitmapDrawable bdrawable = new BitmapDrawable(getContext().getResources(),result);
             bmImage.setImageBitmap(result);
-            //bmImage.setBackground(bdrawable);
             btMemeContinue.setEnabled(true);
             btMemeContinue.setText(getString(R.string.btMemeContinue));
         }
