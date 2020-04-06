@@ -1,10 +1,13 @@
 package com.example.ecoquiz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,15 +21,33 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainScreen";
     public static ArrayList<Question> questionList = new ArrayList<>();
+    public static SharedPreferences sharedPreferences;
+    public static SharedPreferences.Editor editor;
+    private TextView tvCorrectAnswers;
+    private TextView tvTotalAnswers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferences = getSharedPreferences(getString(R.string.FILE_NAME), Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        tvCorrectAnswers = findViewById(R.id.tvCorrectAnswers);
+        tvTotalAnswers = findViewById(R.id.tvTotalAnswers);
+
+        int temp = sharedPreferences.getInt(getString(R.string.TOTAL_CORRECT),0);
+        int temp2 = sharedPreferences.getInt(getString(R.string.TOTAL_QUESTIONS), 0);
+
+        Double temp3 = (new Double(temp) / new Double(temp2))*100;
+        temp3 =(double) Math.round(temp3*100)/100;
+
+        tvCorrectAnswers.setText(tvCorrectAnswers.getText().toString().concat(Double.toString(temp3)).concat(" %"));
+        tvTotalAnswers.setText(tvTotalAnswers.getText().toString().concat(Integer.toString(temp2)));
+
         if (!questionList.isEmpty()) questionList.clear();
             createQuestions();
             Collections.shuffle(questionList);
-
     }
 
     public void onClickLearn(View view) {

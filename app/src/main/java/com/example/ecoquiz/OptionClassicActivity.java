@@ -29,7 +29,13 @@ public class OptionClassicActivity extends AppCompatActivity {
 
     public void onClassicStartClick(View view) {
         Intent intent = new Intent(this, QuestionActivity.class);
-        intent.putExtra(QuestionActivity.SPINNERVALUE, picker.getValue());
+        if(picker.getValue() == 11) {
+            intent.putExtra(QuestionActivity.SPINNERVALUE, MainActivity.getQuestionList().size());
+        }
+        else {
+            intent.putExtra(QuestionActivity.SPINNERVALUE, picker.getValue());
+
+        }
         startActivity(intent);
     }
 }

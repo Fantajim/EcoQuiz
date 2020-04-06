@@ -21,18 +21,19 @@
 
 
     <TextView
-        android:id="@+id/total"
+        android:id="@+id/tvCorrectAnswers"
         android:layout_gravity="left"
         android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_correct"/>
+        android:text="@string/tvCorrectAnswers"
+        />
     <TextView
-        android:id="@+id/category"
+        android:id="@+id/tvTotalAnswers"
         android:layout_gravity="left"
         android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_least_category"/>
+        android:text="@string/tvTotalAnswers"/>
 
 </LinearLayout>

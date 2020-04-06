@@ -7,14 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class QuestionActivity extends AppCompatActivity implements QuestionListener{
     private static final String TAG = "QuestionScreen";
     private static int maxQuestions;
-    private static int currentQuestion=0;
+    private static int currentQuestion = 1;
     public static final String SPINNERVALUE = "SpinnerValue";
     private boolean meme = false;
     private String memeSource = null;
+    private int correctAnswers = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +47,28 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
 
     @Override
     public void onNextPress(boolean correctAnswer) {
+        if (correctAnswer) correctAnswers++;
+        if ( currentQuestion == maxQuestions) {
+            Intent intent = new Intent(this, MainActivity.class);
+            int temp = MainActivity.sharedPreferences.getInt(getString(R.string.TOTAL_CORRECT), 0);
+            int temp2 = MainActivity.sharedPreferences.getInt(getString(R.string.TOTAL_QUESTIONS), 0);
+            MainActivity.editor.putInt(getString(R.string.TOTAL_CORRECT), correctAnswers+=temp).commit();
+            MainActivity.editor.putInt(getString(R.string.TOTAL_QUESTIONS), maxQuestions+= temp2).commit();
+            correctAnswers = 0;
+            startActivity(intent);
+            finish();
+        }
+        else {
+            increaseCurrentQuestion();
+        }
         // TODO: 06.04.20
         // Make ArrayList of correct and wrong answers and save in sharedPreferences
-        increaseCurrentQuestion();
+
+
 
         // TODO: 06.04.20 / Make end Activity or Fragment not sure
 
-        if ( currentQuestion == maxQuestions) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
+
 
 
         if(meme && currentQuestion % 2 == 1) {
@@ -67,5 +81,9 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question).commit();
         }
 
+    }
+
+    public static void setCurrentQuestion(int currentQuestion) {
+        QuestionActivity.currentQuestion = currentQuestion;
     }
 }

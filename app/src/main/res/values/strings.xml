@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">EcoQuiz</string>
     <string name="btn_learn">Learn</string>
-    <string name="text_correct">Total % correct: </string>
-    <string name="text_least_category">Category least correct: </string>
+    <string name="tvCorrectAnswers">Total % correct:\u0020 </string>
+    <string name= "tvTotalAnswers">Total answered questions:\u0020 </string>
     <string name="btn_classic_go">Lets go!</string>
     <string name="btn_meme_go">Lets meme!</string>
     <string name="img_description">Question Image</string>
@@ -16,5 +16,9 @@
     <string name="radio_meme_option3">ABC</string>
     <string name ="spinner_textview">Amount of\nquestions</string>
     <string name ="meme_textview_source">Meme source</string>
+    <string name = "FILE_NAME">Ecoquiz shared data</string>
+    <string name = "TOTAL_CORRECT">Ecoquiz correct answers</string>
+    <string name = "TOTAL_QUESTIONS">Ecoquiz total questions</string>
+
 
 </resources>

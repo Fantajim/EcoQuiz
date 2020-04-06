@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +33,7 @@ public class QuestionFragment extends Fragment {
     private Button questionNext;
     private QuestionListener listener;
     private boolean correct;
+    private Question question;
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -56,7 +59,7 @@ public class QuestionFragment extends Fragment {
         questionCursor = view.findViewById(R.id.question_cursor);
         questionNext = view.findViewById(R.id.question_nextbutton);
 
-        final Question question = MainActivity.getQuestionList().get(QuestionActivity.getCurrentQuestion());
+        question = MainActivity.getQuestionList().get(QuestionActivity.getCurrentQuestion()-1);
 
         questionText.setText(question.getQuestionText());
         if(question.getQuestionImage() != null &&   !question.getQuestionImage().isEmpty() ) {
@@ -65,12 +68,15 @@ public class QuestionFragment extends Fragment {
             Drawable res = getResources().getDrawable(imageResource);
             questionImage.setImageDrawable(res);
         }
-        radioButton1.setText(question.getAnswer1());
-        radioButton2.setText(question.getAnswer2());
-        if(question.getAnswer3() != null &&   !question.getAnswer3().isEmpty()) {
-            radioButton3.setText(question.getAnswer3());
+        //
+        ArrayList<String> answerList = new ArrayList<>(question.getAnswerList());
+        radioButton1.setText(answerList.get(0));
+        radioButton2.setText(answerList.get(1));
+
+        if(answerList.size() > 2) {
+            radioButton3.setText(answerList.get(2));
             radioButton3.setVisibility(View.VISIBLE);
-            radioButton4.setText(question.getAnswer4());
+            radioButton4.setText(answerList.get(3));
             radioButton4.setVisibility(View.VISIBLE);
 
         }
@@ -112,7 +118,7 @@ public class QuestionFragment extends Fragment {
         questionNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               listener.onNextPress(correct);
+                listener.onNextPress(correct);
             }
         });
 

@@ -1,9 +1,14 @@
 package com.example.ecoquiz;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 public class Question {
 
     private static int counter = 0;
     private int id;
+    private ArrayList<String> answerList = new ArrayList<>();
     private String answer1;
     private String answer2;
     private String answer3;
@@ -20,9 +25,14 @@ public class Question {
         this.answer2 = answer2;
         this.answer3 = answer3;
         this.answer4 = answer4;
+        answerList.add(answer1);
+        answerList.add(answer2);
+        answerList.add(answer3);
+        answerList.add(answer4);
         this.solution = solution;
         this.questionImage = questionImage;
         this.questionText = questionText;
+        Collections.shuffle(answerList);
     }
 
     // Constructor for True/False questions
@@ -30,29 +40,17 @@ public class Question {
         this.id = getNextId();
         this.answer1 = answer1;
         this.answer2 = answer2;
+        answerList.add(answer1);
+        answerList.add(answer2);
         this.solution = solution;
         this.questionText = questionText;
+        Collections.shuffle(answerList);
+
     }
 
     private int getNextId() {
         counter++;
         return counter;
-    }
-
-    public String getAnswer1() {
-        return answer1;
-    }
-
-    public String getAnswer2() {
-        return answer2;
-    }
-
-    public String getAnswer3() {
-        return answer3;
-    }
-
-    public String getAnswer4() {
-        return answer4;
     }
 
     public String getSolution() {
@@ -65,6 +63,10 @@ public class Question {
 
     public String getQuestionText() {
         return questionText;
+    }
+
+    public ArrayList<String> getAnswerList() {
+        return answerList;
     }
 
     public int getId() {
