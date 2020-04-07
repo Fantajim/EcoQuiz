@@ -34,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btLearn = findViewById(R.id.btLearn);
         btSubmit = findViewById(R.id.btSumbit);
         btAbout = findViewById(R.id.btAbout);
+        btLearn.setOnClickListener(this);
+        btSubmit.setOnClickListener(this);
+        btAbout.setOnClickListener(this);
+
+
 
         // TODO: 06.04.20 secret easter egg mode with annoying mp3 loops
         // TODO: 06.04.20  doom guy bloody face marathon mode
@@ -114,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         case R.id.btAbout: {
-            Intent intent = new Intent(this, OptionActivity.class);
+            Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         }
     }

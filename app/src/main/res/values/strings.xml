@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">EcoQuiz</string>
-    //Buttons
+    <!-- Buttons -->
     <string name="btLearn">Learn</string>
     <string name="btn_classic_go">Lets go!</string>
     <string name="btn_meme_go">Lets meme!</string>
@@ -17,10 +17,27 @@
     <string name="meme_textview_source">Meme source</string>
     <string name="FILE_NAME">Ecoquiz shared data</string>
 
-    <string name ="cbFastMeme">Fast Mode</string>
+    <string name="cbFastMeme">Fast Mode</string>
     <string name="img_description">Question Image</string>
     <string name="btSubmit">Submit</string>
     <string name="btAbout">About</string>
+
+    <!-- About Fragment -->
+    <string name="tvAboutTitleMain">EcoQuiz</string>
+    <string name="tvAboutTitleQualityControl">Quality Control</string>
+    <string name="tvAboutAuthorQualityControl">TonkatsuRamen</string>
+    <string name="tvAboutContentQualityControl">Thanks to my brother for all the testing and hilarious inputs</string>
+    <string name="tvAboutTitleDev">Developer</string>
+    <string name="tvAboutAuthorDeveloper">Some old man&#8482;</string>
+    <string name="tvAboutContentDev">Click the gitlab pic for the latest package!</string>
+
+
+    <!-- Special Fragment pssst -->
+    <string name="swAnnoy">Annoy Mode</string>
+    <string name="swBootCamp">Bootcamp Mode</string>
+    <string name="swBonfire">Bonfire mode</string>
+    <string name="swBoom">Nuclear mode</string>
+
 
 
 </resources>

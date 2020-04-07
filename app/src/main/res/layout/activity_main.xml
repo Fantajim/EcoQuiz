@@ -14,17 +14,14 @@
         android:id="@+id/btLearn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_learn"
-        android:layout_marginBottom="50dp"
-        android:onClick="onClickLearn"
+        android:text="@string/btLearn"
         />
-
     <Button
         android:layout_marginTop="30dp"
         android:id="@+id/btSumbit"
         android:text="@string/btSubmit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <Button
         android:layout_marginTop="30dp"
