@@ -26,10 +26,10 @@
     <string name="tvAboutTitleMain">EcoQuiz</string>
     <string name="tvAboutTitleQualityControl">Quality Control</string>
     <string name="tvAboutAuthorQualityControl">TonkatsuRamen</string>
-    <string name="tvAboutContentQualityControl">Thanks to my brother for all the testing and hilarious inputs</string>
+    <string name="tvAboutContentQualityControl">Thanks for all the testing and hilarious inputs</string>
     <string name="tvAboutTitleDev">Developer</string>
     <string name="tvAboutAuthorDeveloper">Some old man&#8482;</string>
-    <string name="tvAboutContentDev">Click the gitlab pic for the latest package!</string>
+    <string name="tvAboutContentDev">Click the gitlab pic to download the latest package!</string>
 
 
     <!-- Special Fragment pssst -->
