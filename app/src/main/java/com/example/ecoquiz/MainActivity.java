@@ -112,15 +112,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         case R.id.btLearn: {
             Intent intent = new Intent(this, OptionActivity.class);
             startActivity(intent);
+            break;
         }
         case R.id.btSumbit: {
-            Intent intent = new Intent(this, OptionActivity.class);
+            Intent intent = new Intent(this, SubmitActivity.class);
             startActivity(intent);
+            break;
         }
 
         case R.id.btAbout: {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
+            break;
         }
     }
     }

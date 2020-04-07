@@ -37,6 +37,21 @@
     <string name="swBootCamp">Bootcamp Mode</string>
     <string name="swBonfire">Bonfire mode</string>
     <string name="swBoom">Nuclear mode</string>
+    <string name="tvTitleSubmit">Submit question</string>
+    <string name="tvQuestion">Question</string>
+    <string name="ctvAnswer2">Answer 2</string>
+    <string name="ctvAnswer3">Answer 3</string>
+    <string name="ctvAnswer4">Answer 4</string>
+    <string name="tvUrl">URL picture</string>
+    <string name="ctvAnswer1">Answer 1</string>
+    <string name="btSelectImage">Select Image from Device</string>
+    <string name="btSend">Send</string>
+    <string name="etQuestion">Enter Question here...</string>
+    <string name="etAnswer1">Enter answer 1 here...</string>
+    <string name="etAnswer2">Enter answer 2 here...</string>
+    <string name="etAnswer3">Enter answer 3 here...</string>
+    <string name="etAnswer4">Enter answer 4 here...</string>
+    <string name="etUrl">Enter URL of picture</string>
 
 
 </resources>
