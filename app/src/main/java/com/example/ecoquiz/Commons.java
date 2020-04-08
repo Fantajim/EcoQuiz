@@ -7,6 +7,7 @@ public class Commons {
     public static final String BOOTCAMP = "Bootcamp";
     public static final String BONFIRE = "Bonfire";
     public static final String NUCLEAR = "Nuclear";
+    public static int PICK_IMAGE = 1;
 }
 
 
