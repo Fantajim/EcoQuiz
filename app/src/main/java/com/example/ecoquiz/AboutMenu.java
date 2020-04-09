@@ -15,7 +15,7 @@ import android.widget.Switch;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AboutSecret extends Fragment implements Switch.OnCheckedChangeListener {
+public class AboutMenu extends Fragment implements Switch.OnCheckedChangeListener {
 
     private Switch swAnnoy;
     private Switch swBootcamp;
@@ -25,7 +25,7 @@ public class AboutSecret extends Fragment implements Switch.OnCheckedChangeListe
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
-    public AboutSecret() {
+    public AboutMenu() {
         // Required empty public constructor
     }
 

@@ -3,6 +3,11 @@ package com.example.ecoquiz;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,14 +19,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainScreen";
     public static ArrayList<Question> questionList = new ArrayList<>();
+    private static boolean devMode = false;
     private Button btLearn;
     private Button btSubmit;
     private Button btAbout;
@@ -46,6 +56,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // TODO: 06.04.20 Submit questions
         // TODO: 06.04.20 About
 
+        if(getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE).contains(Commons.MOD)){
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            Looper looper;
+            AssetManager assetManager = getAssets();
+            String[] files;
+         //   try {
+            //    files = assetManager.list("A");
+           //     List<String> it = new LinkedList<String>(Arrays.asList(files));
+//                AssetFileDescriptor afd = getAssets().openFd("/A"+it.get(0));
+            // TODO: 09.04.2020 rename music to A B C D etc. put in array
+                MediaPlayer mp = MediaPlayer.create(this, R.raw.darude);
+                mp.start();
+            //    mediaPlayer.set(it.get(0));
+            //    mediaPlayer.prepare();
+            //    mediaPlayer.start();
+         //   } catch (IOException e) {
+         //       e.printStackTrace();
+           // }
+
+
+        }
 
         if (!questionList.isEmpty()) questionList.clear();
             createQuestions();
@@ -126,6 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
         }
     }
+    }
+
+    public static void setDevMode(boolean devMode) {
+        MainActivity.devMode = devMode;
     }
 }
 

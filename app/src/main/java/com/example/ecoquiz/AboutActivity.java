@@ -17,7 +17,7 @@ public class AboutActivity extends AppCompatActivity implements AboutFragment.Br
 
     @Override
     public void onLongClick() {
-        AboutSecret secretFrag = new AboutSecret();
+        AboutMenu secretFrag = new AboutMenu();
     getSupportFragmentManager().beginTransaction().replace(R.id.aboutFragmentContainer, secretFrag).addToBackStack(null).commit();
     }
 }
