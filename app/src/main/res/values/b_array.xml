@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<array name="b_array">
+    <item>@raw/a</item>
+    <item>@raw/ab</item>
+    <item>@raw/abc</item>
+    <item>@raw/abcd</item>
+    <item>@raw/abcde</item>
+    <item>@raw/abcdef</item>
+    <item>@raw/abcdefg</item>
+</array>
+</resources>

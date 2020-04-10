@@ -41,6 +41,15 @@ public class AboutMenu extends Fragment implements Switch.OnCheckedChangeListene
         llSecret = view.findViewById(R.id.llSecret);
         sharedPreferences = getActivity().getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE);
 
+        if (sharedPreferences.contains(Commons.MOD)){
+           String temp = sharedPreferences.getString(Commons.MOD, "");
+            if (temp.equals(Commons.ANNOY)) swAnnoy.setChecked(true);
+            if (temp.equals(Commons.BONFIRE)) swBonfire.setChecked(true);
+            if (temp.equals(Commons.BOOTCAMP)) swBootcamp.setChecked(true);
+            if (temp.equals(Commons.NUCLEAR)) swNuclear.setChecked(true);
+
+        }
+
 
         for(int i = 0;i < llSecret.getChildCount(); i++) {
             Switch sw = (Switch)llSecret.getChildAt(i);
@@ -89,6 +98,7 @@ public class AboutMenu extends Fragment implements Switch.OnCheckedChangeListene
             if(counter == llSecret.getChildCount()-1) {
                 editor = sharedPreferences.edit();
                 editor.remove(Commons.MOD).apply();
+                MainActivity.getMediaPlayer().stop();
             }
         }
     }

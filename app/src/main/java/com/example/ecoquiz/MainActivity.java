@@ -2,30 +2,24 @@ package com.example.ecoquiz;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,6 +29,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btLearn;
     private Button btSubmit;
     private Button btAbout;
+    private static MediaPlayer mediaPlayer = new MediaPlayer();
+    private int current_index = 0;
+    private List<Integer> musicList;
+    private TypedArray sounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,31 +54,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // TODO: 06.04.20 Submit questions
         // TODO: 06.04.20 About
 
-        if(getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE).contains(Commons.MOD)){
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            Looper looper;
-            AssetManager assetManager = getAssets();
-            String[] files;
-         //   try {
-            //    files = assetManager.list("A");
-           //     List<String> it = new LinkedList<String>(Arrays.asList(files));
-//                AssetFileDescriptor afd = getAssets().openFd("/A"+it.get(0));
-            // TODO: 09.04.2020 rename music to A B C D etc. put in array
-                MediaPlayer mp = MediaPlayer.create(this, R.raw.darude);
-                mp.start();
-            //    mediaPlayer.set(it.get(0));
-            //    mediaPlayer.prepare();
-            //    mediaPlayer.start();
-         //   } catch (IOException e) {
-         //       e.printStackTrace();
-           // }
 
-
-        }
 
         if (!questionList.isEmpty()) questionList.clear();
             createQuestions();
             Collections.shuffle(questionList);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE).contains(Commons.MOD)){
+            if(!mediaPlayer.isPlaying()) {
+                Resources res = getResources();
+                String painType = getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE).getString(Commons.MOD, "");
+                if(painType.equals(Commons.ANNOY)) {
+                    sounds = res.obtainTypedArray(R.array.a_array);
+                }
+                else if(painType.equals(Commons.BOOTCAMP)){
+                    sounds = res.obtainTypedArray(R.array.b_array);
+                }
+                else if(painType.equals(Commons.BONFIRE)){
+                    sounds = res.obtainTypedArray(R.array.c_array);
+                }
+                else if(painType.equals(Commons.NUCLEAR)){
+                    sounds = res.obtainTypedArray(R.array.d_array);
+                }
+
+                musicList = new ArrayList<>();
+                for (int i = 0; i < sounds.length(); i++) {
+                    musicList.add(sounds.getResourceId(i, -1));
+                }
+                sounds.recycle();
+                Collections.shuffle(musicList);
+
+                mediaPlayer = MediaPlayer.create(this, musicList.get(0));
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        play();
+                    }
+                });
+                mediaPlayer.start();
+            }
+        }
     }
 
     public static ArrayList<Question> getQuestionList() {
@@ -157,6 +174,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
         }
     }
+    }
+    private void play()
+    {
+        if(current_index == musicList.size()-1){
+            current_index=0;
+            Collections.shuffle(musicList);
+        }
+        else {
+            current_index+=1;
+        }
+        AssetFileDescriptor afd = this.getResources().openRawResourceFd(musicList.get(current_index));
+
+        try
+        {
+            mediaPlayer.reset();
+            mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            afd.close();
+        }
+        catch (IllegalArgumentException e)
+        {
+            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        }
+        catch (IllegalStateException e)
+        {
+            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        }
+        catch (IOException e)
+        {
+            Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
+        }
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
     public static void setDevMode(boolean devMode) {
