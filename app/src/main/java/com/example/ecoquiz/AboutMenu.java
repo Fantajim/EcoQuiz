@@ -2,6 +2,7 @@ package com.example.ecoquiz;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ public class AboutMenu extends Fragment implements Switch.OnCheckedChangeListene
     private LinearLayout llSecret;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    MediaPlayer mediaPlayer;
 
     public AboutMenu() {
         // Required empty public constructor
@@ -71,7 +73,10 @@ public class AboutMenu extends Fragment implements Switch.OnCheckedChangeListene
                 ((Switch) llSecret.getChildAt(i)).setChecked(false);
                 editor = sharedPreferences.edit();
             }
-            else {
+            else if(isChecked) {
+                int temp2 = getResources().getIdentifier("start", "raw", getActivity().getPackageName());
+                mediaPlayer = new MediaPlayer().create(getContext(), temp2);
+                mediaPlayer.start();
                 switch(buttonView.getId()) {
                     case R.id.swAnnoy: {
                         editor = sharedPreferences.edit();

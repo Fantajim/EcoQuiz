@@ -35,15 +35,15 @@
     <!-- Special Fragment pssst -->
     <string name="swAnnoy">Annoy Mode</string>
     <string name="swBootCamp">Bootcamp Mode</string>
-    <string name="swBonfire">Bonfire mode</string>
+    <string name="swBonfire">Orange mode</string>
     <string name="swBoom">Nuclear mode</string>
     <string name="tvTitleSubmit">Submit question</string>
     <string name="tvQuestion">Question</string>
-    <string name="ctvAnswer2">Answer 2</string>
-    <string name="ctvAnswer3">Answer 3</string>
-    <string name="ctvAnswer4">Answer 4</string>
+    <string name="ctvAnswer2">A2</string>
+    <string name="ctvAnswer3">A3</string>
+    <string name="ctvAnswer4">A4</string>
     <string name="tvUrl">URL picture</string>
-    <string name="ctvAnswer1">Answer 1</string>
+    <string name="ctvAnswer1">A1</string>
     <string name="btSelectImage">Select Image from Device</string>
     <string name="btSend">Send</string>
     <string name="etQuestion">Enter Question here...</string>

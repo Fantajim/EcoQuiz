@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <array name="d_array">
-    <item>@raw/a</item>
-    <item>@raw/ab</item>
-    <item>@raw/abc</item>
-    <item>@raw/abcd</item>
-    <item>@raw/abcde</item>
-    <item>@raw/abcdef</item>
-    <item>@raw/abcdefg</item>
+    <item>@raw/d1</item>
+    <item>@raw/d2</item>
+    <item>@raw/d3</item>
+    <item>@raw/d4</item>
+    <item>@raw/d5</item>
+    <item>@raw/d6</item>
+    <item>@raw/d7</item>
+    <item>@raw/d8</item>
+    <item>@raw/d9</item>
+    <item>@raw/d10</item>
+    <item>@raw/d11</item>
+    <item>@raw/d12</item>
+    <item>@raw/d13</item>
+    <item>@raw/d14</item>
+    <item>@raw/d15</item>
+    <item>@raw/d16</item>
+    <item>@raw/d17</item>
 </array>
 </resources>
