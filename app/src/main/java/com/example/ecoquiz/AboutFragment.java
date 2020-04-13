@@ -48,7 +48,7 @@ public class AboutFragment extends Fragment {
         ivGitlab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.fhnw.ch/florian.lang/ecoquiz/blob/56335cf2b9a5485ce2c63b58f89f32e4594e7d8b/app-debug.apk"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.fhnw.ch/florian.lang/ecoquiz/"));
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivity(intent);
                 }
