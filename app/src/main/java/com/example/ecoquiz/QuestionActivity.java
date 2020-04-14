@@ -2,7 +2,10 @@ package com.example.ecoquiz;
 
 import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 
 public class QuestionActivity extends AppCompatActivity implements QuestionListener{
@@ -17,19 +20,49 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
+
+        if(savedInstanceState != null) {
+            memeSource = savedInstanceState.getString("memeSource");
+            meme = savedInstanceState.getBoolean("meme");
+            if(getSupportFragmentManager().getFragments().get(0) instanceof  MemeFragment) {
+                MemeFragment temp = (MemeFragment)getSupportFragmentManager().findFragmentByTag("memeFragment");
+                temp.setQuestionListener(this);
+            }
+            else {
+                QuestionFragment temp = (QuestionFragment) getSupportFragmentManager().findFragmentByTag("questionFragment");
+                temp.setListener(this);
+            }
+
+            savedInstanceState.clear();
+
+        }
+        else {
+
+
+
         maxQuestions = getIntent().getExtras().getInt(SPINNERVALUE);
         if (getIntent().getExtras().containsKey(OptionMemeActivity.MEMESOURCE)) {
             memeSource = getIntent().getExtras().getString(OptionMemeActivity.MEMESOURCE);
             meme = true;
-
         }
 
         QuestionFragment question = new QuestionFragment();
         question.setListener(this);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,question).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,question,"questionFragment").addToBackStack(null).commit();
 
+        }
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("memeSource", memeSource);
+        outState.putBoolean("meme", meme);
 
     }
+
+
 
     public static int getMaxQuestions() {
         return maxQuestions;
@@ -55,12 +88,12 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         if(meme) {
            MemeFragment memeFragment = MemeFragment.newInstance(memeSource);
            memeFragment.setQuestionListener(this);
-           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,memeFragment).commit();
+           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,memeFragment, "memeFragment").commit();
         }
         else {
             QuestionFragment question = new QuestionFragment();
             question.setListener(this);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question, "questionFragment").commit();
         }
         }
     }

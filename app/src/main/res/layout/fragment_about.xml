@@ -33,7 +33,16 @@
             android:focusable="true"
             android:layout_marginTop="20dp"
             android:textSize="20sp"
-            android:text="@string/tvAboutAuthorQualityControl"
+            android:text="@string/tvBro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvSd"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="20sp"
+            android:text="@string/tvSd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

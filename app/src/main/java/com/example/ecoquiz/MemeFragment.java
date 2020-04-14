@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +39,8 @@ public class MemeFragment extends Fragment {
     private QuestionListener listener;
     private Button btMemeContinue;
     private ImageView ivMeme;
+    private String url;
+    private String memeUrl;
 
     public void setQuestionListener(QuestionListener mListener) {
         listener = mListener;
@@ -68,22 +72,31 @@ public class MemeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(MEMESOURCE);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_meme, container, false);
-        btMemeContinue = view.findViewById(R.id.btMemeContinue);
-        btMemeContinue.setEnabled(false);
-        btMemeContinue.setText(getString(R.string.btMemeWait));
         ivMeme = view.findViewById(R.id.ivMeme);
-        String url = "https://meme-api.herokuapp.com/gimme/"+mParam1;
-        Uri uri = Uri.parse(url);
-        new JsonTask().execute(url);
+        btMemeContinue = view.findViewById(R.id.btMemeContinue);
+        btMemeContinue.setText(getString(R.string.btMemeWait));
+        btMemeContinue.setEnabled(false);
+
+        if (savedInstanceState != null) {
+        memeUrl = savedInstanceState.getString("memeUrl");
+        new DownloadImageTask(ivMeme).execute(memeUrl);
+        }
+        else {
+
+
+            if (getArguments() != null) {
+                mParam1 = getArguments().getString(MEMESOURCE);
+            }
+            url = "https://meme-api.herokuapp.com/gimme/"+mParam1;
+            Uri uri = Uri.parse(url);
+            new JsonTask().execute(url);
+        }
 
         btMemeContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,11 +104,18 @@ public class MemeFragment extends Fragment {
                 listener.onMemePress();
             }
         });
+
         // Inflate the layout for this fragment
 
         return view;
 
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("memeUrl", memeUrl );
     }
 
     private class JsonTask extends AsyncTask<String, String, String> {
@@ -153,6 +173,7 @@ public class MemeFragment extends Fragment {
             super.onPostExecute(result);
             try {
                 JSONObject json = new JSONObject(result);
+                memeUrl = json.getString("url");
                 new DownloadImageTask(ivMeme)
                         .execute(json.getString("url"));
             } catch (JSONException e) {
