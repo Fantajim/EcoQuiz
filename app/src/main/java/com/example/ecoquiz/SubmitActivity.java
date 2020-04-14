@@ -191,7 +191,7 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
         protected void onPostExecute(String string) {
             super.onPostExecute(string);
             if(responseCode == 201) {
-                Toast.makeText(SubmitActivity.this, "Question submitted succesfully, thank you!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubmitActivity.this, "Question submitted succesfully, thank you! It will be reviewed and added to the repository.", Toast.LENGTH_SHORT).show();
                 etAnswer1.getText().clear();
                 etAnswer2.getText().clear();
                 etAnswer3.getText().clear();
