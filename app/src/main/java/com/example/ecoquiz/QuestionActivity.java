@@ -54,7 +54,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         }
         else {
             increaseCurrentQuestion();
-        }
+
 
         if(meme) {
            MemeFragment memeFragment = MemeFragment.newInstance(memeSource);
@@ -66,7 +66,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
             question.setListener(this);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question).commit();
         }
-
+        }
     }
 
 

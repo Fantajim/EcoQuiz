@@ -12,21 +12,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class SubmitActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -141,36 +140,43 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     // TODO: 14.04.20 connect API
-    private class JsonTask extends AsyncTask<String, Void, Void> {
+    private class JsonTask extends AsyncTask<String, Void, String> {
         private int responseCode = 0;
+        private String response = "";
 
         @Override
-        protected Void doInBackground(String... params) {
-
-            String data = "";
-
-
+        protected String doInBackground(String... params) {
             HttpURLConnection httpURLConnection = null;
             try {
-
                 httpURLConnection = (HttpURLConnection) new URL(params[0]).openConnection();
+                httpURLConnection.setConnectTimeout(15000);
+                httpURLConnection.setReadTimeout(15000);
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-                httpURLConnection.setRequestProperty("Accept","application/json");
+                httpURLConnection.setRequestProperty("Accept", "application/json");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
-
 
                 DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
                 wr.writeBytes(params[1]);
 
                 wr.flush();
                 wr.close();
-                Log.d(TAG, "doInBackground: CODE "+httpURLConnection.getResponseCode());
-                Log.d(TAG, "doInBackground: MSG "+httpURLConnection.getResponseMessage());
+                Log.d(TAG, "doInBackground: CODE " + httpURLConnection.getResponseCode());
+                Log.d(TAG, "doInBackground: MSG " + httpURLConnection.getResponseMessage());
 
                 responseCode = httpURLConnection.getResponseCode();
 
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    String line;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                    while ((line = br.readLine()) != null) {
+                        response += line;
+                    }
+                } else {
+                    response = "";
+
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -178,12 +184,12 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
                     httpURLConnection.disconnect();
                 }
             }
-           return null;
+            return response;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        protected void onPostExecute(String string) {
+            super.onPostExecute(string);
             if(responseCode == 201) {
                 Toast.makeText(SubmitActivity.this, "Question submitted succesfully, thank you!", Toast.LENGTH_SHORT).show();
                 etAnswer1.getText().clear();
