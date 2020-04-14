@@ -36,6 +36,7 @@ public class AboutFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
         broButton = view.findViewById(R.id.tvBro);
+        sdButton = view.findViewById(R.id.tvSd);
         ivGitlab = view.findViewById(R.id.ivGitlab);
 
         sdButton.setOnLongClickListener(new View.OnLongClickListener() {
