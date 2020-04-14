@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <array name="a_array">
-    <item>@raw/a</item>
-    <item>@raw/ab</item>
-    <item>@raw/abc</item>
-    <item>@raw/abcd</item>
-    <item>@raw/abcde</item>
-    <item>@raw/abcdef</item>
-    <item>@raw/abcdefg</item>
+    <item>@raw/a1</item>
+    <item>@raw/a2</item>
+    <item>@raw/a3</item>
+    <item>@raw/a4</item>
+    <item>@raw/a5</item>
+    <item>@raw/a6</item>
+    <item>@raw/a7</item>
+    <item>@raw/a8</item>
 </array>
 </resources>

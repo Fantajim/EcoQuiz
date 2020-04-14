@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <array name="c_array">
-    <item>@raw/c</item>
-    <item>@raw/cc</item>
+    <item>@raw/c1</item>
+    <item>@raw/c2</item>
 </array>
 </resources>
