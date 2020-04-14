@@ -38,11 +38,11 @@
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/tvSd"
+            android:id="@+id/tvSb"
             android:clickable="true"
             android:focusable="true"
             android:textSize="20sp"
-            android:text="@string/tvSd"
+            android:text="@string/tvSb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

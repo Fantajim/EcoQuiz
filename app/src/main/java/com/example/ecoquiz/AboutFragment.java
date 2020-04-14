@@ -18,7 +18,7 @@ public class AboutFragment extends Fragment {
     private BroListener listener;
     private TextView broButton;
     private ImageView ivGitlab;
-    private TextView sdButton;
+    private TextView sbButton;
 
     public void setBroListener(BroListener mListener) {
         listener = mListener;
@@ -36,10 +36,10 @@ public class AboutFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
 
         broButton = view.findViewById(R.id.tvBro);
-        sdButton = view.findViewById(R.id.tvSd);
+        sbButton = view.findViewById(R.id.tvSb);
         ivGitlab = view.findViewById(R.id.ivGitlab);
 
-        sdButton.setOnLongClickListener(new View.OnLongClickListener() {
+        sbButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 listener.onLongClick();
