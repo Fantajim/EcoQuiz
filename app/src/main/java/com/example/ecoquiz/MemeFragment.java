@@ -205,7 +205,13 @@ public class MemeFragment extends Fragment {
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
             btMemeContinue.setEnabled(true);
-            btMemeContinue.setText(getString(R.string.btMemeContinue));
+            if(QuestionActivity.currentQuestion == QuestionActivity.maxQuestions) {
+                btMemeContinue.setText("End");
+            }
+            else {
+                btMemeContinue.setText(getString(R.string.btMemeContinue));
+            }
+
         }
     }
 }

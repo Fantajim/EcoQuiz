@@ -10,8 +10,8 @@ import android.os.Bundle;
 
 public class QuestionActivity extends AppCompatActivity implements QuestionListener{
     private static final String TAG = "QuestionScreen";
-    private static int maxQuestions;
-    private static int currentQuestion = 1;
+    public static int maxQuestions;
+    public static int currentQuestion = 1;
     public static final String SPINNERVALUE = "SpinnerValue";
     private boolean meme = false;
     private String memeSource = null;
@@ -76,37 +76,50 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
 
     @Override
     public void onNextPress(boolean correctAnswer) {
-        if ( currentQuestion == maxQuestions) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else {
-            increaseCurrentQuestion();
-
 
         if(meme) {
-           MemeFragment memeFragment = MemeFragment.newInstance(memeSource);
-           memeFragment.setQuestionListener(this);
-           getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,memeFragment, "memeFragment").commit();
+            callMeme();
         }
         else {
-            QuestionFragment question = new QuestionFragment();
-            question.setListener(this);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question, "questionFragment").commit();
-        }
+
+            if ( currentQuestion == maxQuestions) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                increaseCurrentQuestion();
+                QuestionFragment question = new QuestionFragment();
+                question.setListener(this);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question, "questionFragment").commit();
+            }
         }
     }
 
 
     @Override
     public void onMemePress() {
+        if(currentQuestion == maxQuestions) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+
         QuestionFragment question = new QuestionFragment();
         question.setListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, question).commit();
+            increaseCurrentQuestion();
+        }
     }
 
     public static void setCurrentQuestion(int currentQuestion) {
         QuestionActivity.currentQuestion = currentQuestion;
     }
+
+    private void callMeme() {
+        MemeFragment memeFragment = MemeFragment.newInstance(memeSource);
+        memeFragment.setQuestionListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,memeFragment, "memeFragment").commit();
+}
 }

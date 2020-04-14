@@ -60,6 +60,9 @@ public class QuestionFragment extends Fragment {
         questionText = view.findViewById(R.id.question_text);
         questionCursor = view.findViewById(R.id.question_cursor);
         questionNext = view.findViewById(R.id.question_nextbutton);
+        if(QuestionActivity.currentQuestion == QuestionActivity.maxQuestions) {
+            questionNext.setText("End");
+        }
 
         question = MainActivity.getQuestionList().get(QuestionActivity.getCurrentQuestion()-1);
 
