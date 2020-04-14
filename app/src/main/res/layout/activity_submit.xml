@@ -51,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/ctvAnswer1"
+        android:gravity="center"
+        android:checkMark="?android:attr/listChoiceIndicatorSingle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvQuestion" />
 
@@ -73,6 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/ctvAnswer2"
+        android:gravity="center"
+        android:checkMark="?android:attr/listChoiceIndicatorSingle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ctvAnswer1" />
 
@@ -96,6 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/ctvAnswer3"
+        android:gravity="center"
+        android:checkMark="?android:attr/listChoiceIndicatorSingle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ctvAnswer2" />
 
@@ -119,6 +125,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/ctvAnswer4"
+        android:gravity="center"
+        android:checkMark="?android:attr/listChoiceIndicatorSingle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ctvAnswer3" />
 
@@ -159,21 +167,19 @@
         app:layout_constraintStart_toEndOf="@+id/tvUrl" />
 
     <Button
-        android:id="@+id/btSelectImage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/btSelectImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUrl" />
-
-    <Button
         android:id="@+id/btSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btSend"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvUrlExtra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/tvUrlExtra"
+        app:layout_constraintTop_toBottomOf="@+id/tvUrl"
+        tools:layout_editor_absoluteX="114dp" />
 </android.support.constraint.ConstraintLayout>

@@ -1,36 +1,74 @@
 package com.example.ecoquiz;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SubmitActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private static final String TAG = "SubmitActivity";
     private ConstraintLayout clSubmit;
-    private Button btSelectImage;
     private Button btSend;
     private Uri imageUri;
+    private CheckedTextView ctvAnswer1;
+    private CheckedTextView ctvAnswer2;
+    private CheckedTextView ctvAnswer3;
+    private CheckedTextView ctvAnswer4;
+    private EditText etQuestion;
+    private EditText etQuestionURL;
+    private EditText etAnswer1;
+    private EditText etAnswer2;
+    private EditText etAnswer3;
+    private EditText etAnswer4;
+    private ArrayList<CheckedTextView> ctvArrayList = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit);
         clSubmit = findViewById(R.id.clSubmit);
-        btSelectImage = findViewById(R.id.btSelectImage);
         btSend = findViewById(R.id.btSend);
-        btSelectImage.setOnClickListener(this);
+        ctvAnswer1 = findViewById(R.id.ctvAnswer1);
+        ctvAnswer2 = findViewById(R.id.ctvAnswer2);
+        ctvAnswer3 = findViewById(R.id.ctvAnswer3);
+        ctvAnswer4 = findViewById(R.id.ctvAnswer4);
+        etQuestion = findViewById(R.id.etQuestion);
+        etQuestionURL = findViewById(R.id.etAnswerUrl);
+        etAnswer1 = findViewById(R.id.etAnswer1);
+        etAnswer2 = findViewById(R.id.etAnswer2);
+        etAnswer3 = findViewById(R.id.etAnswer3);
+        etAnswer4 = findViewById(R.id.etAnswer4);
+        List<CheckedTextView> ctvList = Arrays.asList(ctvAnswer1, ctvAnswer2, ctvAnswer3, ctvAnswer4);
+        ctvArrayList.addAll(ctvList);
+        for(CheckedTextView ctv: ctvArrayList){
+            ctv.setOnClickListener(this);
+        }
         btSend.setOnClickListener(this);
     }
 
@@ -45,35 +83,118 @@ public class SubmitActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-          /*  case R.id.btSelectImage: {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), Commons.PICK_IMAGE);
-                break;
-            }*/
             case R.id.btSend: {
-                String emailText = "New question to add!\n\n";
-                for(int i = 1; i< clSubmit.getChildCount();i++) {
-                    View view = clSubmit.getChildAt(i);
-                    if (view instanceof TextView | view instanceof EditText) {
-                        if(view instanceof EditText)emailText+=": ";
-                        emailText+=((TextView) view).getText().toString();
-                        if(view instanceof EditText)emailText+="\n";
-                    }
+                if(!ctvAnswer1.isChecked() && !ctvAnswer2.isChecked() && !ctvAnswer3.isChecked() && !ctvAnswer4.isChecked()){
+                    Toast.makeText(this, "Please select an answer as solution", Toast.LENGTH_SHORT).show();
+                    break;
                 }
+                else if(etQuestion.getText().toString().equals("")) {
+                    Toast.makeText(this, "Question Text is empty!", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if (etAnswer1.getText().toString().equals("")){
+                    Toast.makeText(this, "Answer 1 Text cannot be empty", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if(etAnswer2.getText().toString().equals("")) {
+                    Toast.makeText(this, "Answer 2 Text cannot be empty", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if((etAnswer3.getText().toString().equals("") && ctvAnswer3.isChecked()) | (etAnswer4.getText().toString().equals("") && ctvAnswer4.isChecked())) {
+                    Toast.makeText(this, "Cheeky cheeky, select an answer that is not empty", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else {
 
-                // TODO: 08.04.20 Replace this crap with DB upload
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setData(Uri.parse("mailto:"));
-                //intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_SUBJECT, "new question");
-                intent.putExtra(Intent.EXTRA_TEXT, emailText);
-                if(imageUri!=null) {
-                    intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                    JSONObject postData = new JSONObject();
+                    try {
+                        postData.put("submittedAnswer1", etAnswer1.getText().toString());
+                        postData.put("submittedAnswer2", etAnswer2.getText().toString());
+                        postData.put("submittedAnswer3", etAnswer3.getText().toString());
+                        postData.put("submittedAnswer4", etAnswer4.getText().toString());
+                        postData.put("submittedQuestionImageURL", etQuestionURL.getText().toString());
+                        postData.put("submittedQuestionText", etQuestion.getText().toString());
+                        String temp = "";
+                        for(CheckedTextView ctv : ctvArrayList){
+                            if(ctv.isChecked()) temp = ctv.getText().toString();
+                        }
+                        postData.put("submittedSolution", temp);
+                        new JsonTask().execute("https://machutichu.duckdns.org:8443/api/createSubmittedQuestion", postData.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
                 }
-                startActivity(intent);
+            }
+            case R.id.ctvAnswer1:
+            case R.id.ctvAnswer2:
+            case R.id.ctvAnswer3:
+            case R.id.ctvAnswer4:
+                CheckedTextView temp = (CheckedTextView) v;
+                for(CheckedTextView ctv: ctvArrayList){
+                    ctv.setChecked(false);
+                }
+                temp.setChecked(true);
                 break;
+        }
+    }
+
+    // TODO: 14.04.20 connect API
+    private class JsonTask extends AsyncTask<String, Void, Void> {
+        private int responseCode = 0;
+
+        @Override
+        protected Void doInBackground(String... params) {
+
+            String data = "";
+
+
+            HttpURLConnection httpURLConnection = null;
+            try {
+
+                httpURLConnection = (HttpURLConnection) new URL(params[0]).openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                httpURLConnection.setRequestProperty("Accept","application/json");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+
+                DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+                wr.writeBytes(params[1]);
+
+                wr.flush();
+                wr.close();
+                Log.d(TAG, "doInBackground: CODE "+httpURLConnection.getResponseCode());
+                Log.d(TAG, "doInBackground: MSG "+httpURLConnection.getResponseMessage());
+
+                responseCode = httpURLConnection.getResponseCode();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+            }
+           return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(responseCode == 201) {
+                Toast.makeText(SubmitActivity.this, "Question submitted succesfully, thank you!", Toast.LENGTH_SHORT).show();
+                etAnswer1.getText().clear();
+                etAnswer2.getText().clear();
+                etAnswer3.getText().clear();
+                etAnswer4.getText().clear();
+                etQuestionURL.getText().clear();
+                etQuestion.getText().clear();
+            }
+            else if(responseCode == 406) {
+                Toast.makeText(SubmitActivity.this, "There is already a question with the same text", Toast.LENGTH_SHORT).show();
             }
         }
     }

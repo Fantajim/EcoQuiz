@@ -48,11 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        // TODO: 06.04.20 secret easter egg mode with annoying mp3 loops
         // TODO: 06.04.20  doom guy bloody face marathon mode
         // TODO: 06.04.20 Scoreboard database raspbi marathon mode
         // TODO: 06.04.20 Submit questions
-        // TODO: 06.04.20 About
 
 
 
