@@ -16,6 +16,7 @@
     <string name="spinner_textview">Amount of\nquestions</string>
     <string name="meme_textview_source">Meme source</string>
     <string name="FILE_NAME">Ecoquiz shared data</string>
+    <string name="btUpdate">Update question DB</string>
 
     <string name="cbFastMeme">Fast Mode</string>
     <string name="img_description">Question Image</string>
@@ -53,6 +54,7 @@
     <string name="etAnswer4">Enter answer 4 here...</string>
     <string name="etUrl">Enter URL of picture... </string>
     <string name="tvUrlExtra">Hint: if you have an image file, upload it on TinyPic or Imgur and insert the URL above</string>
+    <string name="tvQuestionCount">"Question database size: "</string>
 
 
 </resources>

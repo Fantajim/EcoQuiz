@@ -19,8 +19,8 @@ public class Question {
 
 
     // Constructor for default 4 answer multiple choice
-    public Question(String answer1, String answer2, String answer3, String answer4, String solution, String questionImage, String questionText) {
-        this.id = getNextId();
+    public Question(String id, String answer1, String answer2, String answer3, String answer4, String solution, String questionImage, String questionText) {
+        this.id = Integer.parseInt(id);
         this.answer1 = answer1;
         this.answer2 = answer2;
         this.answer3 = answer3;
@@ -36,8 +36,8 @@ public class Question {
     }
 
     // Constructor for True/False questions
-    public Question(String answer1, String answer2, String solution, String questionText){
-        this.id = getNextId();
+    public Question(String id, String answer1, String answer2, String solution, String questionText){
+        this.id = Integer.parseInt(id);
         this.answer1 = answer1;
         this.answer2 = answer2;
         answerList.add(answer1);
@@ -51,6 +51,10 @@ public class Question {
     private int getNextId() {
         counter++;
         return counter;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSolution() {

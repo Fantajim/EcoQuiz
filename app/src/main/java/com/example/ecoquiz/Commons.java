@@ -8,6 +8,8 @@ public class Commons {
     public static final String BONFIRE = "Bonfire";
     public static final String NUCLEAR = "Nuclear";
     public static int PICK_IMAGE = 1;
+    public static final String JSONFILE = "economics_questions.json";
+    public static final String JSONARRAY = "jsonArray";
 }
 
 
