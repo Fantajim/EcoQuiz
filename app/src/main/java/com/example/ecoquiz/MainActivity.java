@@ -7,7 +7,6 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.media.MediaPlayer;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +14,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Cache;
 import com.android.volley.Network;
 import com.android.volley.Request;
@@ -26,16 +28,12 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -44,6 +42,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainScreen";
     public static ArrayList<Question> questionList = new ArrayList<>();
+    private static ArrayList<Question> tempQuestionList = new ArrayList<>();
     private static boolean devMode = false;
     private Button btLearn;
     private Button btSubmit;
@@ -79,27 +78,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (!questionList.isEmpty()) questionList.clear();
         createQuestions();
-        tvQuestionCount.setText(getString(R.string.tvQuestionCount)+questionList.size());
+        updateQuestionCount(questionList.size());
         Collections.shuffle(questionList);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE).contains(Commons.MOD)){
-            if(!mediaPlayer.isPlaying()) {
+        if (getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE).contains(Commons.MOD)) {
+            if (!mediaPlayer.isPlaying()) {
                 Resources res = getResources();
                 String painType = getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE).getString(Commons.MOD, "");
-                if(painType.equals(Commons.ANNOY)) {
+                if (painType.equals(Commons.ANNOY)) {
                     sounds = res.obtainTypedArray(R.array.a_array);
-                }
-                else if(painType.equals(Commons.BOOTCAMP)){
+                } else if (painType.equals(Commons.BOOTCAMP)) {
                     sounds = res.obtainTypedArray(R.array.b_array);
-                }
-                else if(painType.equals(Commons.BONFIRE)){
+                } else if (painType.equals(Commons.BONFIRE)) {
                     sounds = res.obtainTypedArray(R.array.c_array);
-                }
-                else if(painType.equals(Commons.NUCLEAR)){
+                } else if (painType.equals(Commons.NUCLEAR)) {
                     sounds = res.obtainTypedArray(R.array.d_array);
                 }
 
@@ -127,68 +123,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void createQuestions() {
-        try {
-            SharedPreferences sharedPreferences = getSharedPreferences(Commons.SHAREDPREFERENCES, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            Gson gson = new Gson();
-            String json = sharedPreferences.getString(Commons.JSONARRAY, "");
-
-            if(!json.equals("")) {
-                JSONObject jsonObject = gson.fromJson(json, JSONObject.class);
-               // JsonArray jsonArray = new JsonArray(json);
-                //JsonObject jsonObject = new JsonObject(json);
-                JSONArray questionArray = jsonObject.getJSONArray(Commons.JSONARRAY);
-                for (int i = 0; i < questionArray.length(); i++) {
-                    JSONObject jsonQuestion = questionArray.getJSONObject(i);
-                    String id = jsonQuestion.getString("questionId");
-                    String a1 = jsonQuestion.getString("answer1");
-                    String a2 = jsonQuestion.getString("answer2");
-                    String a3 = jsonQuestion.getString("answer3");
-                    String a4 = jsonQuestion.getString("answer4");
-                    String q = jsonQuestion.getString("questionText");
-                    String image = jsonQuestion.getString("questionImageURL");
-                    String solution = jsonQuestion.getString("solution");
-                    if (jsonQuestion.getString("answer3").isEmpty()) {
-                        Question question = new Question(id, a1, a2, solution, q);
-                        questionList.add(question);
-                    } else {
-                        Question question = new Question(id, a1, a2, a3, a4, solution, image, q);
-                        questionList.add(question);
-                    }
-
-                }
-            }
+        SharedPreferences sharedPreferences = getSharedPreferences(Commons.SHAREDPREFERENCES, MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(Commons.JSONARRAY, "");
+        if (!json.equals("")) {
+            Question[] q = gson.fromJson(json, Question[].class);
+            questionList.addAll(Arrays.asList(q));
+            String temp ="";
         }
-        catch(JSONException e) {
-            e.printStackTrace();
+        else {
+            Toast.makeText(this, "No questions found, press update to download from database", Toast.LENGTH_SHORT).show();
         }
-
-        for (Question q : questionList) {
-            Log.d("test", q.toString());
-        }
-
-    }
-
-    public String loadJSONFromAsset() {
-        String json = null;
-        try {
-            InputStream is = getAssets().open(Commons.JSONFILE);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.btLearn: {
                 Intent intent = new Intent(this, OptionActivity.class);
                 startActivity(intent);
@@ -209,39 +160,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btUpdate: {
 
                 pbUpdate.setVisibility(ProgressBar.VISIBLE);
-                // Instantiate the cache
                 Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-
-// Set up the network to use HttpURLConnection as the HTTP client.
                 Network network = new BasicNetwork(new HurlStack());
-// Instantiate the RequestQueue with the cache and network.
                 requestQueue = new RequestQueue(cache, network);
-// Start the queue
                 requestQueue.start();
                 String url = "https://machutichu.duckdns.org:8443/api/getQuestions";
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        JSONObject file = null;
-                        try {
-                            if(questionList.isEmpty() ||   Integer.parseInt(response.getJSONObject(response.length()-1).optString("questionId")) > questionList.get(questionList.size()-1).getId()) {
-                                SharedPreferences sharedPreferences = getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                JSONObject jsonObject = new JSONObject();
-                                jsonObject.put(Commons.JSONARRAY, response);
-                                Gson gson = new Gson();
-                                String json = gson.toJson(jsonObject);
-                                editor.putString(Commons.JSONARRAY, json);
-                                editor.apply();
-                            }
-                            else {
-                                Toast.makeText(MainActivity.this, "No new questions in database, keep calm and learn on", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        fromJsonToList(response, tempQuestionList);
+                        if (tempQuestionList.size() > questionList.size() || questionList.isEmpty()) {
+                            SharedPreferences sharedPreferences = getSharedPreferences(Commons.SHAREDPREFERENCES, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            Gson gson = new Gson();
+                            String json = gson.toJson(tempQuestionList);
+                            editor.putString(Commons.JSONARRAY, json);
+                            editor.apply();
+                            int difference = tempQuestionList.size() - questionList.size();
+                            updateQuestionCount(tempQuestionList.size());
+                            questionList = tempQuestionList;
+                            Toast.makeText(MainActivity.this, "Added "+difference+" questions from database", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "No new questions in database, keep calm and learn on", Toast.LENGTH_SHORT).show();
                         }
-
-                        String temp = "";
                         pbUpdate.setVisibility(ProgressBar.INVISIBLE);
                     }
                 }, new Response.ErrorListener() {
@@ -255,42 +196,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-    private void play()
-    {
-        if(current_index == musicList.size()-1){
-            current_index=0;
+
+    private void play() {
+        if (current_index == musicList.size() - 1) {
+            current_index = 0;
             Collections.shuffle(musicList);
-        }
-        else {
-            current_index+=1;
+        } else {
+            current_index += 1;
         }
         AssetFileDescriptor afd = this.getResources().openRawResourceFd(musicList.get(current_index));
 
-        try
-        {
+        try {
             mediaPlayer.reset();
             mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getDeclaredLength());
             mediaPlayer.prepare();
             mediaPlayer.start();
             afd.close();
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
-        }
-        catch (IllegalStateException e)
-        {
+        } catch (IllegalStateException e) {
             Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             Log.e(TAG, "Unable to play audio queue do to exception: " + e.getMessage(), e);
         }
     }
 
+    private static void fromJsonToList(JSONArray jsonArray, ArrayList<Question> arrayList) {
+        arrayList.clear();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonQuestion = jsonArray.getJSONObject(i);
+                String id = jsonQuestion.getString("questionId");
+                String a1 = jsonQuestion.getString("answer1");
+                String a2 = jsonQuestion.getString("answer2");
+                String a3 = jsonQuestion.getString("answer3");
+                String a4 = jsonQuestion.getString("answer4");
+                String q = jsonQuestion.getString("questionText");
+                String image = jsonQuestion.getString("questionImageURL");
+                String solution = jsonQuestion.getString("solution");
+                if (jsonQuestion.getString("answer3").isEmpty()) {
+                    Question question = new Question(id, a1, a2, solution, q);
+                    arrayList.add(question);
+                } else {
+                    Question question = new Question(id, a1, a2, a3, a4, solution, image, q);
+                    arrayList.add(question);
+                }
+            }
+        }
+        catch(JSONException e){
+            Log.d(TAG, "createQuestions: ERROR: " + e.toString());
+            e.printStackTrace();
+        }
+    }
 
     public static MediaPlayer getMediaPlayer() {
         return mediaPlayer;
+    }
+
+    private void updateQuestionCount(int count) {
+        tvQuestionCount.setText(getString(R.string.tvQuestionCount) + count);
     }
 
     public static void setDevMode(boolean devMode) {

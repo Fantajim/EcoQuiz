@@ -3,11 +3,13 @@ package com.example.ecoquiz;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class Question {
 
     private static int counter = 0;
     private int id;
+    private List<Question> questions = new ArrayList<>();
     private ArrayList<String> answerList = new ArrayList<>();
     private String answer1;
     private String answer2;
@@ -51,6 +53,70 @@ public class Question {
     private int getNextId() {
         counter++;
         return counter;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Question.counter = counter;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public void setAnswerList(ArrayList<String> answerList) {
+        this.answerList = answerList;
+    }
+
+    public String getAnswer1() {
+        return answer1;
+    }
+
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
+
+    public String getAnswer2() {
+        return answer2;
+    }
+
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
+    }
+
+    public String getAnswer3() {
+        return answer3;
+    }
+
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
+    }
+
+    public String getAnswer4() {
+        return answer4;
+    }
+
+    public void setAnswer4(String answer4) {
+        this.answer4 = answer4;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
+    }
+
+    public void setQuestionImage(String questionImage) {
+        this.questionImage = questionImage;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
     }
 
     public void setId(int id) {

@@ -12,6 +12,9 @@
         android:id="@+id/question_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxHeight="200dp"
+        android:maxWidth="250dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/img_description"
         />
     <TextView
@@ -26,21 +29,28 @@
 
         <RadioButton
             android:id="@+id/radiobutton1"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <RadioButton
+            android:layout_marginTop="5dp"
             android:id="@+id/radiobutton2"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <RadioButton
+            android:layout_marginTop="5dp"
             android:id="@+id/radiobutton3"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
         <RadioButton
+            android:layout_marginTop="5dp"
             android:id="@+id/radiobutton4"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
