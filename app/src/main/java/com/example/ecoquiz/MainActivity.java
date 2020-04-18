@@ -141,9 +141,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btLearn: {
-                Intent intent = new Intent(this, OptionActivity.class);
-                startActivity(intent);
-                break;
+                if(questionList.isEmpty()) {
+                    Toast.makeText(this, "No questions found, press update to download from database", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else {
+                    Intent intent = new Intent(this, OptionActivity.class);
+                    startActivity(intent);
+                    break;
+                }
             }
             case R.id.btSumbit: {
                 Intent intent = new Intent(this, SubmitActivity.class);
