@@ -3,6 +3,7 @@ package com.example.ecoquiz;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -12,6 +13,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
     private static final String TAG = "QuestionScreen";
     public static int maxQuestions;
     public static int currentQuestion = 1;
+    private int correctAnswers = 0;
     public static final String SPINNERVALUE = "SpinnerValue";
     private boolean meme = false;
     private String memeSource = null;
@@ -76,16 +78,11 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
 
     @Override
     public void onNextPress(boolean correctAnswer) {
-
-        if(meme) {
-            callMeme();
-        }
+        if(correctAnswer) correctAnswers++;
+        if(meme)callMeme();
         else {
-
             if ( currentQuestion == maxQuestions) {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                endQuestions();
             }
             else {
                 increaseCurrentQuestion();
@@ -96,13 +93,24 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         }
     }
 
+    private void endQuestions() {
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra(Commons.RESULT, correctAnswers);
+        intent.putExtra(Commons.AMOUNTQUESTIONS, maxQuestions);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+    }
 
     @Override
     public void onMemePress() {
         if(currentQuestion == maxQuestions) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            endQuestions();
         }
         else {
 

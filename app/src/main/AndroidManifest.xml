@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SubmitActivity"></activity>
+        <activity android:name=".ResultActivity"
+            android:theme="@style/MyDialog"
+            />
+        <activity android:name=".SubmitActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".OptionClassicActivity" />
         <activity android:name=".OptionMemeActivity" />

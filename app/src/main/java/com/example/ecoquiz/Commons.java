@@ -10,6 +10,8 @@ public class Commons {
     public static int PICK_IMAGE = 1;
     public static final String JSONFILE = "economics_questions.json";
     public static final String JSONARRAY = "jsonArray";
+    public static final String RESULT = "result";
+    public static final String AMOUNTQUESTIONS = "amountQuestions";
 }
 
 

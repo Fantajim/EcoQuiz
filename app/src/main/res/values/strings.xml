@@ -55,6 +55,8 @@
     <string name="etUrl">Enter URL of picture... </string>
     <string name="tvUrlExtra">Hint: if you have an image file, upload it on TinyPic or Imgur and insert the URL above</string>
     <string name="tvQuestionCount">"Question database size: "</string>
+    <string name="tvResultTitle">Result</string>
+    <string name="btResultFinish">Finish</string>
 
 
 </resources>
