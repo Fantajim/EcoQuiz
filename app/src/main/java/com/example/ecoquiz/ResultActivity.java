@@ -49,7 +49,7 @@ public class ResultActivity extends AppCompatActivity {
         progressBar.setMax(maxQuestions);
 
         ValueAnimator animator = ValueAnimator.ofInt(0, correctAnswers);
-        animator.setDuration(1500);
+        animator.setDuration(1000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation){
@@ -65,7 +65,7 @@ public class ResultActivity extends AppCompatActivity {
                 tvResultTotal.setText(correctAnswers+" of "+maxQuestions+" questions are correct !\n\n--> ");
                 int temp = (int) percentage;
                 if(temp == 100) tvResultTotal.append("Perfection.");
-                else if(temp >90)tvResultTotal.append("Disciple of economy");
+                else if(temp >90)tvResultTotal.append("Ah i see, you are a man/woman of economy");
                 else if(temp > 70)tvResultTotal.append("Such impressive, much wow");
                 else if(temp > 50) tvResultTotal.append("Not great, not terrible...");
                 else if(temp > 30)tvResultTotal.append("MEDIOCRE");
