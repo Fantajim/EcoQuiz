@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class ResultActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
@@ -61,7 +63,8 @@ public class ResultActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 percentage = (correctDouble/maxDouble)*100;
-                tvResultPercent.setText(percentage +"% correct");
+                DecimalFormat df = new DecimalFormat("##.00");
+                tvResultPercent.setText((df.format(percentage)) +"% correct");
                 tvResultTotal.setText(correctAnswers+" of "+maxQuestions+" questions are correct !\n\n--> ");
                 int temp = (int) percentage;
                 if(temp == 100) tvResultTotal.append("Perfection.");
