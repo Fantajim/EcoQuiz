@@ -69,7 +69,7 @@ public class ResultActivity extends AppCompatActivity {
                 else if(temp > 70)tvResultTotal.append("Such impressive, much wow");
                 else if(temp > 50) tvResultTotal.append("Not great, not terrible...");
                 else if(temp > 30)tvResultTotal.append("MEDIOCRE");
-                else tvResultTotal.append("Quitting is not an option.. try again");
+                else tvResultTotal.append("That's a paddlin'");
             }
         });
         animator.start();

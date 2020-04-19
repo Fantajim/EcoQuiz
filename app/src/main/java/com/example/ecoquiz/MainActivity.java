@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createQuestions();
         updateQuestionCount(questionList.size());
         Collections.shuffle(questionList);
+
+        if(questionList.isEmpty())btLearn.setEnabled(false);
     }
 
     @Override
@@ -189,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         } else {
                             Toast.makeText(MainActivity.this, "No new questions in database, keep calm and learn on", Toast.LENGTH_SHORT).show();
                         }
+                        if(!questionList.isEmpty())btLearn.setEnabled(true);
                         pbUpdate.setVisibility(ProgressBar.INVISIBLE);
                     }
                 }, new Response.ErrorListener() {
