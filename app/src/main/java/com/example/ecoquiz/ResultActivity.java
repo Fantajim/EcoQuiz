@@ -50,10 +50,9 @@ public class ResultActivity extends AppCompatActivity {
         tvResultPercent = findViewById(R.id.tvResultPercent);
         tvResultTotal = findViewById(R.id.tvResultTotal);
 
+        progressBar.setMax(maxQuestions*100);
 
-        progressBar.setMax(maxQuestions);
-
-        ValueAnimator animator = ValueAnimator.ofInt(0, correctAnswers);
+        ValueAnimator animator = ValueAnimator.ofInt(0, correctAnswers*100);
         animator.setDuration(1000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
