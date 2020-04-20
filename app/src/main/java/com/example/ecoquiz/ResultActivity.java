@@ -71,7 +71,7 @@ public class ResultActivity extends AppCompatActivity {
                 int temp = (int) percentage;
                 if(temp == 100) ivResult.setImageResource(R.drawable.perfection);
                 else if(temp >90)ivResult.setImageResource(R.drawable.culture);
-                else if(temp > 70)ivResult.setImageResource(R.drawable.success);
+                else if(temp > 60)ivResult.setImageResource(R.drawable.success);
                 else if(temp > 50) ivResult.setImageResource(R.drawable.notgreat);
                 else if(temp > 30)ivResult.setImageResource(R.drawable.mediocre);
                 else if(temp > 10)ivResult.setImageResource(R.drawable.brrr);
