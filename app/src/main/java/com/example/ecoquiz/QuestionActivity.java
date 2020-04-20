@@ -39,9 +39,6 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
 
         }
         else {
-
-
-
         maxQuestions = getIntent().getExtras().getInt(SPINNERVALUE);
         if (getIntent().getExtras().containsKey(OptionMemeActivity.MEMESOURCE)) {
             memeSource = getIntent().getExtras().getString(OptionMemeActivity.MEMESOURCE);
@@ -63,8 +60,6 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         outState.putBoolean("meme", meme);
 
     }
-
-
 
     public static int getMaxQuestions() {
         return maxQuestions;
