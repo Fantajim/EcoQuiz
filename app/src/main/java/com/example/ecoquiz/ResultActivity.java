@@ -65,7 +65,7 @@ public class ResultActivity extends AppCompatActivity {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 percentage = (correctDouble/maxDouble)*100;
-                DecimalFormat df = new DecimalFormat("##.00");
+                DecimalFormat df = new DecimalFormat("0.00");
                 tvResultPercent.setText((df.format(percentage)) +"% correct");
                 tvResultTotal.setText(correctAnswers+" of "+maxQuestions+" questions are correct !\n\nVerdict:");
                 int temp = (int) percentage;
