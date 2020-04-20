@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // TODO: 06.04.20  doom guy bloody face marathon mode
         // TODO: 06.04.20 Scoreboard database raspbi marathon mode
         // TODO: 20.04.2020 imgur, tinypic linkbuttons with submit
+        // TODO: 20.04.2020 categories + courses
 
 
         if (!questionList.isEmpty()) questionList.clear();

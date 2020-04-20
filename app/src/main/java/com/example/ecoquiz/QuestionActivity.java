@@ -130,4 +130,11 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         memeFragment.setQuestionListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,memeFragment, "memeFragment").commit();
 }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, OptionActivity.class);
+        startActivity(intent);
+    }
 }

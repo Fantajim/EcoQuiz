@@ -57,7 +57,7 @@ public class ResultActivity extends AppCompatActivity {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation){
-                progressBar.setProgress((Integer)animation.getAnimatedValue());;
+                progressBar.setProgress((Integer)animation.getAnimatedValue());
             }
         });
         animator.addListener(new AnimatorListenerAdapter() {
@@ -70,7 +70,7 @@ public class ResultActivity extends AppCompatActivity {
                 tvResultTotal.setText(correctAnswers+" of "+maxQuestions+" questions are correct !\n\nVerdict:");
                 int temp = (int) percentage;
                 if(temp == 100) ivResult.setImageResource(R.drawable.perfection);
-                else if(temp >90)ivResult.setImageResource(R.drawable.culture);
+                else if(temp > 80)ivResult.setImageResource(R.drawable.culture);
                 else if(temp > 60)ivResult.setImageResource(R.drawable.success);
                 else if(temp > 50) ivResult.setImageResource(R.drawable.notgreat);
                 else if(temp > 30)ivResult.setImageResource(R.drawable.mediocre);
