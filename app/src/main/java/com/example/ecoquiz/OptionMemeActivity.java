@@ -30,12 +30,12 @@ public class OptionMemeActivity extends AppCompatActivity {
 
         picker = findViewById(R.id.numberpicker_meme);
         picker.setMinValue(1);
-        picker.setMaxValue(11);
-        String[] pickerValues = new String[11];
-        for (int i = 0; i< 10;i++) {
+        picker.setMaxValue(MainActivity.questionList.size());
+        String[] pickerValues = new String[MainActivity.questionList.size()];
+        for (int i = 0; i< MainActivity.questionList.size()-1;i++) {
             pickerValues[i] = Integer.toString(i+1);
         }
-        pickerValues[10] = "all";
+        pickerValues[MainActivity.questionList.size()-1] = "all";
         picker.setDisplayedValues(pickerValues);
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

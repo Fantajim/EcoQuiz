@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class ResultActivity extends AppCompatActivity {
     private TextView tvResultPercent;
     private TextView tvResultTotal;
     private Button btFinish;
+    private ImageView ivResult;
     private int correctAnswers;
     private double correctDouble;
     private double percentage;
@@ -42,6 +44,7 @@ public class ResultActivity extends AppCompatActivity {
         correctDouble = correctAnswers;
         maxDouble = maxQuestions;
 
+        ivResult = findViewById(R.id.ivResult);
         btFinish = findViewById(R.id.btResultFinish);
         progressBar = findViewById(R.id.pbResult);
         tvResultPercent = findViewById(R.id.tvResultPercent);
@@ -65,14 +68,15 @@ public class ResultActivity extends AppCompatActivity {
                 percentage = (correctDouble/maxDouble)*100;
                 DecimalFormat df = new DecimalFormat("##.00");
                 tvResultPercent.setText((df.format(percentage)) +"% correct");
-                tvResultTotal.setText(correctAnswers+" of "+maxQuestions+" questions are correct !\n\n--> ");
+                tvResultTotal.setText(correctAnswers+" of "+maxQuestions+" questions are correct !\n\nVerdict:");
                 int temp = (int) percentage;
-                if(temp == 100) tvResultTotal.append("Perfection.");
-                else if(temp >90)tvResultTotal.append("Ah i see, you are a man/woman of economy");
-                else if(temp > 70)tvResultTotal.append("Such impressive, much wow");
-                else if(temp > 50) tvResultTotal.append("Not great, not terrible...");
-                else if(temp > 30)tvResultTotal.append("MEDIOCRE");
-                else tvResultTotal.append("That's a paddlin'");
+                if(temp == 100) ivResult.setImageResource(R.drawable.perfection);
+                else if(temp >90)ivResult.setImageResource(R.drawable.culture);
+                else if(temp > 70)ivResult.setImageResource(R.drawable.success);
+                else if(temp > 50) ivResult.setImageResource(R.drawable.notgreat);
+                else if(temp > 30)ivResult.setImageResource(R.drawable.mediocre);
+                else if(temp > 10)ivResult.setImageResource(R.drawable.brrr);
+                else ivResult.setImageResource(R.drawable.paddlin);
             }
         });
         animator.start();
