@@ -113,7 +113,9 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mediaPlayer.stop();
+        if(mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
     }
 
     @Override
