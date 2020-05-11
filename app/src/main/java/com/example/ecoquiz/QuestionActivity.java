@@ -100,6 +100,7 @@ public class QuestionActivity extends AppCompatActivity implements QuestionListe
         super.onActivityResult(requestCode, resultCode, data);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+
     }
 
     @Override

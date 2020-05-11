@@ -32,7 +32,7 @@ public class ResultActivity extends AppCompatActivity {
     private double percentage;
     private int maxQuestions;
     private double maxDouble;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer resultMediaPlayer;
 
 
     @Override
@@ -57,6 +57,7 @@ public class ResultActivity extends AppCompatActivity {
         tvResultTotal = findViewById(R.id.tvResultTotal);
 
         progressBar.setMax(maxQuestions*100);
+        btFinish.setEnabled(false);
 
         ValueAnimator animator = ValueAnimator.ofInt(0, correctAnswers*100);
         animator.setDuration(1000);
@@ -70,6 +71,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                btFinish.setEnabled(true);
                 percentage = (correctDouble/maxDouble)*100;
                 DecimalFormat df = new DecimalFormat("0.##");
                 tvResultPercent.setText((df.format(percentage)) +"% correct");
@@ -89,9 +91,11 @@ public class ResultActivity extends AppCompatActivity {
                     if(MainActivity.mediaPlayer.isPlaying()) {
                         MainActivity.mediaPlayer.pause();
                     }
-                    mediaPlayer = MediaPlayer.create(ResultActivity.this, R.raw.coffin_short);
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(true);
+                    if(hasWindowFocus()) {
+                        resultMediaPlayer = MediaPlayer.create(ResultActivity.this, R.raw.coffin_short);
+                        resultMediaPlayer.start();
+                    }
+
                     givResult.setImageResource(R.drawable.coffindance);
                 }
             }
@@ -111,10 +115,10 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
+    protected void onStop() {
+        super.onStop();
+        if(resultMediaPlayer != null) {
+            resultMediaPlayer.stop();
         }
     }
 
