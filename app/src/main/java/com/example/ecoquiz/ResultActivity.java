@@ -93,9 +93,9 @@ public class ResultActivity extends AppCompatActivity {
                     }
                     if(hasWindowFocus()) {
                         resultMediaPlayer = MediaPlayer.create(ResultActivity.this, R.raw.coffin_short);
+                        resultMediaPlayer.setLooping(true);
                         resultMediaPlayer.start();
                     }
-
                     givResult.setImageResource(R.drawable.coffindance);
                 }
             }
